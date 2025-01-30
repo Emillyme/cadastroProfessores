@@ -20,6 +20,5 @@ from cadastro_professores import views, urls
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', views.home, name='Inicio'),
     path('api/', include('cadastro_professores.urls')),  # Certifique-se de que o nome do app é o correto
 ]
