@@ -6,7 +6,7 @@ class Professor(AbstractUser):
     last_name = None
 
     nome = models.CharField(max_length=255, blank=True, null=True)  # Nome completo
-    ni = models.CharField(max_length=15, blank=True, null=True)  # Número de telefone (opcional)
+    ni = models.CharField(max_length=15, blank=True, null=True) # Numero de identificação
     cargo = models.CharField(max_length=255)  # Campo cargo do professor
 
     def __str__(self):

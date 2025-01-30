@@ -42,6 +42,9 @@ class LoginView(APIView):
 
         user = get_user_model().objects.get(ni=ni)
 
+        if not user.check_password(password):
+            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+
         if user:
             # Gerando token de acesso e refresh token
             refresh = RefreshToken.for_user(user)
