@@ -15,7 +15,7 @@ export default function Index() {
     const router = useRouter(); // Inicializa o hook useRouter
 
 
-    async function handleLogin(e){
+    async function handleLogin(e) {
         e.preventDefault();
 
         const response = await fetch('http://127.0.0.1:8000/api/login/', {
@@ -23,17 +23,17 @@ export default function Index() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ni, password})
+            body: JSON.stringify({ ni, password })
         });
 
-        if (response.ok){
+        if (response.ok) {
             const data = await response.json()
             localStorage.setItem('token', data.access);
             localStorage.setItem('refreshToken', data.refresh)
             console.log(data.access)
 
             router.push('/hello')
-        }else {
+        } else {
             alert('Credenciais inválidas');
             console.log(response);
         }
@@ -45,12 +45,14 @@ export default function Index() {
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/wallpaper.jpg)' }}></div>
 
             {/* Tela de Login */}
-            <div className="flex justify-center items-center min-h-screen relative">
-                <div className="bg-white p-8 rounded-3xl min-w-max min-h-max w-[500px] h-[899px] p-[80px]">
-                    <h2 className="text-2xl font-bold mb-4">
-                        Login
-                    </h2>
-
+            <div className="flex flex-col justify-center items-center relative bg-white rounded-3xl min-w-max min-h-max w-[630px] h-[909] p-10 space-y-10">
+                <h2 className="text-2xl font-bold absolute top-10 left-1/2 transform -translate-x-1/2">
+                    Login
+                </h2>
+                <h2 className="text-6xl font-bold mb-6">
+                    Login
+                </h2>
+                <div className="flex justify-center items-center w-full">
                     <form onSubmit={handleLogin} className="space-y-4 flex flex-col justify-center items-center">
                         <div className="space-y-2">
                             <Input
@@ -84,14 +86,12 @@ export default function Index() {
                         <Button className="w-full mt-6" type="submit" disabled={loading}>
                             {loading ? 'Carregando...' : 'Entrar'}
                         </Button>
-                    </form>
-                    <div className='flex items-center justify-center pt-2'>
                         <Link href="/Register" className='w-full'>
                             <Button className='w-full' variant={'ghost'}>
                                 Cadastrar
                             </Button>
                         </Link>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
