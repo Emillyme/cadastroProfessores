@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +11,7 @@ export default function Index() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const router = useRouter(); // Inicializa o hook useRouter
 
 
@@ -34,23 +34,23 @@ export default function Index() {
 
             router.push('/hello')
         } else {
-            alert('Credenciais inválidas');
+            setError('Credenciais inválidas');
             console.log(response);
         }
     }
 
     return (
-        <div className="flex">
+        <div className="flex justify-center">
             {/* Fundo */}
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/wallpaper.jpg)' }}></div>
+            <div className="absolute inset-0 w-screen h-screen bg-cover bg-center" style={{ backgroundImage: 'url(/wallpaper2.png)' }}></div>
 
             {/* Tela de Login */}
-            <div className="flex flex-col justify-center items-center relative bg-white rounded-3xl min-w-max min-h-max w-[630px] h-[909] p-10 space-y-10">
+            <div className="flex flex-col justify-center items-center relative bg-white rounded-3xl min-w-max min-h-max w-[630px] h-[809] p-10 space-y-10  mt-20">
                 <h2 className="text-2xl font-bold absolute top-10 left-1/2 transform -translate-x-1/2">
-                    Login
+                    TeacherPass
                 </h2>
-                <h2 className="text-6xl font-bold mb-6">
-                    Login
+                <h2 className="text-5xl font-light mb-6 w-80 text-center">
+                    Olá, seja bem-vindo
                 </h2>
                 <div className="flex justify-center items-center w-full">
                     <form onSubmit={handleLogin} className="space-y-4 flex flex-col justify-center items-center">
@@ -59,6 +59,7 @@ export default function Index() {
                                 id='ni'
                                 type='text'
                                 placeholder='Numero de identificação'
+                                className='h-12 rounded-3xl'
                                 onChange={(e) => setNi(e.target.value)}
                                 value={ni}
                                 required
@@ -70,6 +71,7 @@ export default function Index() {
                                     id='password'
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
+                                    className='h-12 rounded-3xl'
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder='Senha'
                                     required
@@ -77,17 +79,18 @@ export default function Index() {
                                 <button
                                     type='button'
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className='absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700'
+                                    className='absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 '
                                 >
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
                             </div>
                         </div>
-                        <Button className="w-full mt-6" type="submit" disabled={loading}>
+                        {error && <p className="text-red-500 text-sm">{error}</p>}
+                        <Button className="w-full mt-6 h-12 rounded-3xl bg-primary-green  hover:bg-secondary-green" type="submit" disabled={loading}>
                             {loading ? 'Carregando...' : 'Entrar'}
                         </Button>
-                        <Link href="/Register" className='w-full'>
-                            <Button className='w-full' variant={'ghost'}>
+                        <Link href="/Cadastro" className='w-full'>
+                            <Button className='w-full rounded-2xl' variant={'ghost'}>
                                 Cadastrar
                             </Button>
                         </Link>
